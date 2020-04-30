@@ -1,5 +1,9 @@
 // reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
 // getvideo searches for the youtube video desired, and embedVideo puts that on an html sit
+const MongoClient = require('mongodb').MongoClient;
+const url = 'mongodb://localhost:27017';
+
+const client = new MongoClient(uri, { useNewUrlParser: true });
 
 
 // function that calls the video. q is the song search, returns song and info
@@ -32,10 +36,9 @@ function embedVideo(data) {
     $('.description').text(data.items[0].snippet.description)
 }
 
-// whoever did the DB should be able to swap that line and it should return an embedded music video. I had trouble testing this,
-// but the website I used for reference is reliable.
+// For testing the script
 function main() {
-    var variable = "whatever song name is" + "artist name"; // need database to do this, change each string to what it is in DB
+    var variable = "whatever song name is" + "artist name";
     var video = getVideo(variable);
     embedVideo(video);
 }

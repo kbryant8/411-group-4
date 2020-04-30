@@ -1,12 +1,16 @@
 from flask import Flask, render_template, request
+from pymongo import MongoClient
 
 app = Flask(__name__)
 
+client = MongoClient(port=27017)
+db = client.app
 
 #first page that collect user's name
 @app.route('/', methods = ['POST'])
 def home():
     name = request.form['username'] #get the user name
+    db.user.insert_one({'name': name})
     return render_template('home.html')
 
 
@@ -19,8 +23,8 @@ def login():
 #the sorting page
 @app.route('/sort')
 def sort():
-   '''#get the info base on the api'''
-   #this is a random name of the return and it should based on the database and I think we can use mysql function
+    '''#get the info base on the api'''
+    #this is a random name of the return and it should based on the database and I think we can use mysql function
     return sorting_list()
 
 #sort another playlist
